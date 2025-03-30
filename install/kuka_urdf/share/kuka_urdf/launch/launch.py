@@ -53,8 +53,8 @@ def generate_launch_description():
         Node(
             package='joint_state_publisher',
             executable='joint_state_publisher',
-            name='romulus_joint_state_publisher',
-            namespace='romulus',
+            name='remus_joint_state_publisher',
+            namespace='remus',
             output='screen'
         ),
         
@@ -66,10 +66,37 @@ def generate_launch_description():
         namespace='remus',
         output='screen'
         ),
+
+        #Romulus robot state publisher 
+        Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            name='romuluq_state_publisher',
+            namespace='romulus',
+            output='screen',
+            parameters=[{'use_sim_time': use_sim_time, 'robot_description': Command(['xacro ', urdf_2])}], #Command(['xacro ', urdf])
+            arguments=[urdf_2]),
+        
+        Node(
+            package='joint_state_publisher',
+            executable='joint_state_publisher',
+            name='romulus_joint_state_publisher',
+            namespace='romulus',
+            output='screen'
+        ),
+        
+        #joint state publisher GUI
+        Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='romulus_joint_state_publisher_gui',
+        namespace='romulus',
+        output='screen'
+        ),
+
+
         
         #RViz
-
-
         Node(
             package='rviz2',
             executable='rviz2',
