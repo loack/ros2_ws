@@ -38,7 +38,8 @@ def generate_launch_description():
             package='tf2_ros',
             executable='static_transform_publisher',
             name='remus_static_tf',
-            arguments=['0', '0', '0', '0', '0', '0', 'world', 'remus_base_link']
+            namespace='remus',
+            arguments=['0', '0', '0', '0', '0', '0', 'world', 'a_base_link']
         ),
 
         # Static transform for Romulus robot
