@@ -38,7 +38,6 @@ def generate_launch_description():
             package='tf2_ros',
             executable='static_transform_publisher',
             name='remus_static_tf',
-            namespace='remus',
             arguments=['0', '0', '0', '0', '0', '0', 'world', 'remus_base_link']
         ),
 
@@ -47,7 +46,6 @@ def generate_launch_description():
             package='tf2_ros',
             executable='static_transform_publisher',
             name='romulus_static_tf',
-            namespace='romulus',
             arguments=['2', '0', '0', '0', '0', '0', 'world', 'romulus_base_link']
         ),
 
