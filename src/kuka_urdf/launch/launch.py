@@ -33,6 +33,23 @@ def generate_launch_description():
     print(f"Using RViz config: {rviz_config}")
         
     return LaunchDescription([
+        # Static transform for Remus robot
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='remus_static_tf',
+            namespace='remus',
+            arguments=['0', '0', '0', '0', '0', '0', 'world', 'a_base_link']
+        ),
+
+        # Static transform for Romulus robot
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='romulus_static_tf',
+            arguments=['2', '0', '0', '0', '0', '0', 'world', 'base_link']
+        ),
+
         #Hello node
         Node(
             package='kuka_urdf',
@@ -55,7 +72,8 @@ def generate_launch_description():
             executable='joint_state_publisher',
             name='remus_joint_state_publisher',
             namespace='remus',
-            output='screen'
+            output='screen',
+            remappings=[('/joint_states', '/remus/joint_states')]
         ),
         
         #joint state publisher GUI
@@ -64,7 +82,8 @@ def generate_launch_description():
         executable='joint_state_publisher_gui',
         name='remus_joint_state_publisher_gui',
         namespace='remus',
-        output='screen'
+        output='screen',
+        remappings=[('/joint_states', '/remus/joint_states')]
         ),
 
         #Romulus robot state publisher 
@@ -82,7 +101,8 @@ def generate_launch_description():
             executable='joint_state_publisher',
             name='romulus_joint_state_publisher',
             namespace='romulus',
-            output='screen'
+            output='screen',
+            remappings=[('/joint_states', '/romulus/joint_states')]
         ),
         
         #joint state publisher GUI
@@ -91,7 +111,9 @@ def generate_launch_description():
         executable='joint_state_publisher_gui',
         name='romulus_joint_state_publisher_gui',
         namespace='romulus',
-        output='screen'
+        output='screen',
+        remappings=[('/joint_states', '/romulus/joint_states')]
+
         ),
 
 
