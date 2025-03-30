@@ -1,0 +1,39 @@
+[1.257s] Invoking command in '/home/lolo/ros2_ws/src/kuka_urdf': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/lolo/ros2_ws/build/kuka_urdf/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(.venv) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/kuka_urdf build --build-base /home/lolo/ros2_ws/build/kuka_urdf/build install --record /home/lolo/ros2_ws/build/kuka_urdf/install.log --single-version-externally-managed install_data
+[1.589s] running egg_info
+[1.615s] writing ../../build/kuka_urdf/kuka_urdf.egg-info/PKG-INFO
+[1.615s] writing dependency_links to ../../build/kuka_urdf/kuka_urdf.egg-info/dependency_links.txt
+[1.616s] writing entry points to ../../build/kuka_urdf/kuka_urdf.egg-info/entry_points.txt
+[1.616s] writing requirements to ../../build/kuka_urdf/kuka_urdf.egg-info/requires.txt
+[1.616s] writing top-level names to ../../build/kuka_urdf/kuka_urdf.egg-info/top_level.txt
+[1.668s] reading manifest file '../../build/kuka_urdf/kuka_urdf.egg-info/SOURCES.txt'
+[1.669s] adding license file 'LICENSE'
+[1.670s] writing manifest file '../../build/kuka_urdf/kuka_urdf.egg-info/SOURCES.txt'
+[1.670s] running build
+[1.670s] running build_py
+[1.670s] running install
+[1.678s] running install_lib
+[1.705s] running install_data
+[1.705s] creating /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/visual
+[1.705s] copying meshes/visual/link_5.dae -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/visual
+[1.707s] copying meshes/visual/link_1.dae -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/visual
+[1.709s] copying meshes/visual/link_3.dae -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/visual
+[1.710s] copying meshes/visual/link_4.dae -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/visual
+[1.711s] copying meshes/visual/base_link.dae -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/visual
+[1.711s] copying meshes/visual/link_2.dae -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/visual
+[1.716s] copying meshes/visual/link_6.dae -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/visual
+[1.717s] creating /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/collision
+[1.717s] copying meshes/collision/base_link.stl -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/collision
+[1.717s] copying meshes/collision/link_1.stl -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/collision
+[1.717s] copying meshes/collision/link_4.stl -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/collision
+[1.718s] copying meshes/collision/link_2.stl -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/collision
+[1.718s] copying meshes/collision/link_5.stl -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/collision
+[1.718s] copying meshes/collision/link_3.stl -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/collision
+[1.718s] copying meshes/collision/link_6.stl -> /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/meshes/collision
+[1.718s] running install_egg_info
+[1.748s] removing '/home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf-0.0.0-py3.12.egg-info' (and everything under it)
+[1.748s] Copying ../../build/kuka_urdf/kuka_urdf.egg-info to /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf-0.0.0-py3.12.egg-info
+[1.750s] running install_scripts
+[1.933s] Installing hello_node script to /home/lolo/ros2_ws/install/kuka_urdf/lib/kuka_urdf
+[1.933s] Installing state_publisher script to /home/lolo/ros2_ws/install/kuka_urdf/lib/kuka_urdf
+[1.934s] writing list of installed files to '/home/lolo/ros2_ws/build/kuka_urdf/install.log'
+[1.961s] Invoked command in '/home/lolo/ros2_ws/src/kuka_urdf' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/lolo/ros2_ws/build/kuka_urdf/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(.venv) /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/kuka_urdf build --build-base /home/lolo/ros2_ws/build/kuka_urdf/build install --record /home/lolo/ros2_ws/build/kuka_urdf/install.log --single-version-externally-managed install_data

@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: hello-package
+Version: 0.0.0
+Summary: Beginner client libraries tutorials practice package
+Maintainer: lolo
+Maintainer-email: lolo@todo.todo
+License: Apache License 2.0
