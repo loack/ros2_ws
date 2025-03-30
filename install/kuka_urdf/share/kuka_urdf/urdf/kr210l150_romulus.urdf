@@ -5,7 +5,7 @@
 <!-- =================================================================================== -->
 <!--Generates a urdf from the macro in kr210_macro.xacro -->
 <robot name="romulus" xmlns:xacro="http://wiki.ros.org/xacro">
-  <link name="base_link">
+  <link name="romulus_base_link">
     <!--<inertial>
       <origin rpy="0 0 0" xyz="-0.027804 0.00039112 0.14035"/>
       <mass value="1572.9"/>
@@ -28,7 +28,7 @@
     </collision>
   </link>
 
-  <link name="link_1">
+  <link name="romulus_link_1">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.036811 -0.024697 0.56577"/>
       <mass value="1385.5"/>
@@ -51,7 +51,7 @@
     </collision>
   </link>
 
-  <link name="link_2">
+  <link name="romulus_link_2">
     <inertial>
       <origin rpy="0 0 0" xyz="0.016923 -0.19196 0.44751"/>
       <mass value="958.62"/>
@@ -74,7 +74,7 @@
     </collision>
   </link>
 
-  <link name="link_3">
+  <link name="romulus_link_3">
     <inertial>
       <origin rpy="0 0 0" xyz="0.18842 0.18344 -0.042799"/>
       <mass value="710.03"/>
@@ -97,7 +97,7 @@
     </collision>
   </link>
 
-  <link name="link_4">
+  <link name="romulus_link_4">
     <inertial>
       <origin rpy="0 0 0" xyz="0.27146 -0.007326 5.2775E-05"/>
       <mass value="173.73"/>
@@ -120,7 +120,7 @@
     </collision>
   </link>
 
-  <link name="link_5">
+  <link name="romulus_link_5">
     <inertial>
       <origin rpy="0 0 0" xyz="0.04379 0.025984 3.5491E-07"/>
       <mass value="72.17"/>
@@ -143,7 +143,7 @@
     </collision>
   </link>
 
-  <link name="link_6">
+  <link name="romulus_link_6">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.017956 -1.5237E-05 0.00015484"/>
       <mass value="6.3154"/>
@@ -166,7 +166,7 @@
     </collision>
   </link>
 
-  <link name="tool0">
+  <link name="romulus_tool0">
     <visual>
       <!-- X-axis (Red) -->
       <origin xyz="0.05 0 0" rpy="0 1.570796 0"/>
@@ -201,53 +201,53 @@
 
   <joint name="romulus_joint_a1" type="revolute">
     <origin rpy="0 0 0" xyz="-0.00262 0.00097586 0.33099"/>
-    <parent link="base_link"/>
-    <child link="link_1"/>
+    <parent link="romulus_base_link"/>
+    <child link="romulus_link_1"/>
     <axis xyz="0 0 1"/>
     <limit effort="0" lower="-3.228859205" upper="3.228859205" velocity="2.146755039"/>
   </joint>
 
   <joint name="romulus_joint_a2" type="revolute">
     <origin rpy="0 0 0" xyz="0.35277 -0.037476 0.4192"/>
-    <parent link="link_1"/>
-    <child link="link_2"/>
+    <parent link="romulus_link_1"/>
+    <child link="romulus_link_2"/>
     <axis xyz="0 1 0"/>
     <limit effort="0" lower="-0.785398185" upper="1.483529905" velocity="2.007128695"/>
   </joint>
   <joint name="romulus_joint_a3" type="revolute">
     <origin rpy="0 0 0" xyz="-9.8483E-05 -0.1475 1.2499"/>
-    <parent link="link_2"/>
-    <child link="link_3"/>
+    <parent link="romulus_link_2"/>
+    <child link="romulus_link_3"/>
     <axis xyz="0 1 0"/>
     <limit effort="0" lower="-3.66519153" upper="1.134464045" velocity="1.954768816"/> 
   </joint>
   <joint name="romulus_joint_a4" type="revolute">
     <origin rpy="0 0 0" xyz="0.95795 0.184 -0.055059"/>
-    <parent link="link_3"/>
-    <child link="link_4"/>
+    <parent link="romulus_link_3"/>
+    <child link="romulus_link_4"/>
     <axis xyz="1 0 0"/>
     <limit effort="0" lower="-6.10865255" upper="6.10865255" velocity="3.124139447"/>
   </joint>
 
   <joint name="romulus_joint_a5" type="revolute">
     <origin rpy="0 0 0" xyz="0.542 0 0"/>
-    <parent link="link_4"/>
-    <child link="link_5"/>
+    <parent link="romulus_link_4"/>
+    <child link="romulus_link_5"/>
     <axis xyz="0 1 0"/>
     <limit effort="0" lower="-2.181661625" upper="2.181661625" velocity="3.001966396"/>
   </joint>
 
   <joint name="romulus_joint_a6" type="revolute">
     <origin rpy="0 0 0" xyz="0.1925 0 0"/>
-    <parent link="link_5"/>
-    <child link="link_6"/>
+    <parent link="romulus_link_5"/>
+    <child link="romulus_link_6"/>
     <axis xyz="1 0 0"/>
     <limit effort="0" lower="-6.10865255" upper="6.10865255" velocity="3.822271167"/>
   </joint>
 
   <joint name="romulus_link_6-tool0" type="fixed">
-    <parent link="link_6"/>
-    <child link="tool0"/>
+    <parent link="romulus_link_6"/>
+    <child link="romulus_tool0"/>
     <origin rpy="0 0 0" xyz="0.0375 0 -0.00023924"/>
   </joint>
 
