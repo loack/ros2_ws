@@ -12,7 +12,7 @@
       <inertia ixx="89.282" ixy="-0.47721" ixz="0.85562" iyy="107.51" iyz="0.0067576" izz="172.02"/>
     </inertial> -->
     <visual>
-      <origin rpy="-1.570796327 0 0" xyz="2 0 0"/>
+      <origin rpy="-1.570796327 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://kuka_urdf/meshes/visual/base_link.dae"/>
       </geometry>
