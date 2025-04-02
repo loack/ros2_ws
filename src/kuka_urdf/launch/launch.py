@@ -79,14 +79,6 @@ def generate_launch_description():
             arguments=['0', '1.5', '0', '0', '0', '0', 'world', 'romulus_base_link']
         ),
         
-        Node(
-            package='joint_state_publisher',
-            executable='joint_state_publisher',
-            name='remus_joint_state_publisher',
-            namespace='remus',
-            output='screen',
-            #remappings=[('/joint_states', '/remus/joint_states')]
-        ),
         #joint state publisher GUI
         Node(
         package='joint_state_publisher_gui',
@@ -95,15 +87,6 @@ def generate_launch_description():
         namespace='remus',
         output='screen',
         #remappings=[('/joint_states', '/remus/joint_states')]
-        ),
-
-        Node(
-            package='joint_state_publisher',
-            executable='joint_state_publisher',
-            name='romulus_joint_state_publisher',
-            namespace='romulus',
-            output='screen',
-            #remappings=[('/joint_states', '/romulus/joint_states')]
         ),
         
         #joint state publisher GUI

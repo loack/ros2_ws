@@ -1,3 +1,2 @@
 [console_scripts]
-hello_node = kuka_urdf.hello_node:main
-state_publisher = kuka_urdf.state_publisher:main
+joint_state_listener = kuka_urdf.joint_state_listener:main

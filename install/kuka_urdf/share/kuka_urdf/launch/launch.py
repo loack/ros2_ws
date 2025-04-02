@@ -33,30 +33,15 @@ def generate_launch_description():
     print(f"Using RViz config: {rviz_config}")
         
     return LaunchDescription([
-        # Static transform for Remus robot
+        #RViz
         Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='remus_static_tf',
-            namespace='remus',
-            arguments=['0', '0', '0', '0', '0', '0', 'world', 'a_base_link']
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            output='screen',
+            arguments=['-d', rviz_config_path]
         ),
 
-        # Static transform for Romulus robot
-        Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='romulus_static_tf',
-            arguments=['2', '0', '0', '0', '0', '0', 'world', 'romulus_base_link']
-        ),
-
-        #Hello node
-        Node(
-            package='kuka_urdf',
-            executable='hello_node',
-            name='hello_node',
-            output='screen'
-        ),
         #Remus robot state publisher 
         Node(
             package='robot_state_publisher',
@@ -66,25 +51,6 @@ def generate_launch_description():
             output='screen',
             parameters=[{'use_sim_time': use_sim_time, 'robot_description': Command(['xacro ', urdf_1])}], #Command(['xacro ', urdf])
             arguments=[urdf_1]),
-        
-        Node(
-            package='joint_state_publisher',
-            executable='joint_state_publisher',
-            name='remus_joint_state_publisher',
-            namespace='remus',
-            output='screen',
-            remappings=[('/joint_states', '/remus/joint_states')]
-        ),
-        
-        #joint state publisher GUI
-        Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        name='remus_joint_state_publisher_gui',
-        namespace='remus',
-        output='screen',
-        remappings=[('/joint_states', '/remus/joint_states')]
-        ),
 
         #Romulus robot state publisher 
         Node(
@@ -96,13 +62,31 @@ def generate_launch_description():
             parameters=[{'use_sim_time': use_sim_time, 'robot_description': Command(['xacro ', urdf_2])}], #Command(['xacro ', urdf])
             arguments=[urdf_2]),
         
+        # Static transform for Remus robot
         Node(
-            package='joint_state_publisher',
-            executable='joint_state_publisher',
-            name='romulus_joint_state_publisher',
-            namespace='romulus',
-            output='screen',
-            remappings=[('/joint_states', '/romulus/joint_states')]
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='remus_static_tf',
+            namespace='remus',
+            arguments=['0', '-1.5', '0', '0', '0', '0', 'world', 'remus_base_link']
+        ),
+
+        # Static transform for Romulus robot
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='romulus_static_tf',
+            arguments=['0', '1.5', '0', '0', '0', '0', 'world', 'romulus_base_link']
+        ),
+        
+        #joint state publisher GUI
+        Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='remus_joint_state_publisher_gui',
+        namespace='remus',
+        output='screen',
+        #remappings=[('/joint_states', '/remus/joint_states')]
         ),
         
         #joint state publisher GUI
@@ -112,18 +96,6 @@ def generate_launch_description():
         name='romulus_joint_state_publisher_gui',
         namespace='romulus',
         output='screen',
-        remappings=[('/joint_states', '/romulus/joint_states')]
-
+        #remappings=[('/joint_states', '/romulus/joint_states')]
         ),
-
-
-        
-        #RViz
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            output='screen',
-            arguments=['-d', rviz_config_path]
-        )
     ])

@@ -10,7 +10,8 @@ setup.py
 ../../build/kuka_urdf/kuka_urdf.egg-info/top_level.txt
 ../../build/kuka_urdf/kuka_urdf.egg-info/zip-safe
 kuka_urdf/__init__.py
-kuka_urdf/hello_node.py
+kuka_urdf/command_line_state_publisher.py
+kuka_urdf/joint_state_listener.py
 kuka_urdf/state_publisher.py
 launch/launch.py
 meshes/collision/base_link.stl

@@ -7,8 +7,8 @@ Panels:
         - /Global Options1
         - /Status1
         - /Remus1
+        - /Remus1/Links1
         - /Romulus1
-        - /Romulus1/Links1
       Splitter Ratio: 0.5
     Tree Height: 1067
   - Class: rviz_common/Selection
@@ -68,42 +68,42 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_link:
+        remus_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_1:
+        remus_link_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_2:
+        remus_link_2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_3:
+        remus_link_3:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_4:
+        remus_link_4:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_5:
+        remus_link_5:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_6:
+        remus_link_6:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        tool0:
+        remus_tool0:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -134,42 +134,42 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_link:
+        romulus_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_1:
+        romulus_link_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_2:
+        romulus_link_2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_3:
+        romulus_link_3:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_4:
+        romulus_link_4:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_5:
+        romulus_link_5:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_6:
+        romulus_link_6:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        tool0:
+        romulus_tool0:
           Alpha: 1
           Show Axes: false
           Show Trail: false
