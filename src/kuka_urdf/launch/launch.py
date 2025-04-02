@@ -39,7 +39,7 @@ def generate_launch_description():
             executable='static_transform_publisher',
             name='remus_static_tf',
             namespace='remus',
-            arguments=['0', '0', '0', '0', '0', '0', 'world', 'a_base_link']
+            arguments=['0', '0', '0', '0', '0', '0', 'world', 'remus_base_link']
         ),
 
         # Static transform for Romulus robot
