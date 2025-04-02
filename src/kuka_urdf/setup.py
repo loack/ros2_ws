@@ -27,8 +27,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'state_publisher = kuka_urdf.state_publisher:main',
-            'hello_node = kuka_urdf.hello_node:main',
         ],
     },
 )

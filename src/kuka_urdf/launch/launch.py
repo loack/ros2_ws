@@ -73,7 +73,7 @@ def generate_launch_description():
             name='remus_joint_state_publisher',
             namespace='remus',
             output='screen',
-            remappings=[('/joint_states', '/remus/joint_states')]
+            #remappings=[('/joint_states', '/remus/joint_states')]
         ),
         
         #joint state publisher GUI
@@ -83,7 +83,7 @@ def generate_launch_description():
         name='remus_joint_state_publisher_gui',
         namespace='remus',
         output='screen',
-        remappings=[('/joint_states', '/remus/joint_states')]
+        #remappings=[('/joint_states', '/remus/joint_states')]
         ),
 
         #Romulus robot state publisher 
@@ -102,7 +102,7 @@ def generate_launch_description():
             name='romulus_joint_state_publisher',
             namespace='romulus',
             output='screen',
-            remappings=[('/joint_states', '/romulus/joint_states')]
+            #remappings=[('/joint_states', '/romulus/joint_states')]
         ),
         
         #joint state publisher GUI
@@ -112,7 +112,7 @@ def generate_launch_description():
         name='romulus_joint_state_publisher_gui',
         namespace='romulus',
         output='screen',
-        remappings=[('/joint_states', '/romulus/joint_states')]
+        #remappings=[('/joint_states', '/romulus/joint_states')]
 
         ),
 
