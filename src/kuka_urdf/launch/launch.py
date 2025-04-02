@@ -33,6 +33,35 @@ def generate_launch_description():
     print(f"Using RViz config: {rviz_config}")
         
     return LaunchDescription([
+        #RViz
+        Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            output='screen',
+            arguments=['-d', rviz_config_path]
+        ),
+
+        #Remus robot state publisher 
+        Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            name='remus_state_publisher',
+            namespace='remus',
+            output='screen',
+            parameters=[{'use_sim_time': use_sim_time, 'robot_description': Command(['xacro ', urdf_1])}], #Command(['xacro ', urdf])
+            arguments=[urdf_1]),
+
+        #Romulus robot state publisher 
+        Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            name='romulus_state_publisher',
+            namespace='romulus',
+            output='screen',
+            parameters=[{'use_sim_time': use_sim_time, 'robot_description': Command(['xacro ', urdf_2])}], #Command(['xacro ', urdf])
+            arguments=[urdf_2]),
+        
         # Static transform for Remus robot
         Node(
             package='tf2_ros',
@@ -49,23 +78,6 @@ def generate_launch_description():
             name='romulus_static_tf',
             arguments=['2', '0', '0', '0', '0', '0', 'world', 'romulus_base_link']
         ),
-
-        #Hello node
-        Node(
-            package='kuka_urdf',
-            executable='hello_node',
-            name='hello_node',
-            output='screen'
-        ),
-        #Remus robot state publisher 
-        Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            name='remus_state_publisher',
-            namespace='remus',
-            output='screen',
-            parameters=[{'use_sim_time': use_sim_time, 'robot_description': Command(['xacro ', urdf_1])}], #Command(['xacro ', urdf])
-            arguments=[urdf_1]),
         
         Node(
             package='joint_state_publisher',
@@ -75,7 +87,6 @@ def generate_launch_description():
             output='screen',
             #remappings=[('/joint_states', '/remus/joint_states')]
         ),
-        
         #joint state publisher GUI
         Node(
         package='joint_state_publisher_gui',
@@ -86,16 +97,6 @@ def generate_launch_description():
         #remappings=[('/joint_states', '/remus/joint_states')]
         ),
 
-        #Romulus robot state publisher 
-        Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            name='romulus_state_publisher',
-            namespace='romulus',
-            output='screen',
-            parameters=[{'use_sim_time': use_sim_time, 'robot_description': Command(['xacro ', urdf_2])}], #Command(['xacro ', urdf])
-            arguments=[urdf_2]),
-        
         Node(
             package='joint_state_publisher',
             executable='joint_state_publisher',
@@ -113,17 +114,5 @@ def generate_launch_description():
         namespace='romulus',
         output='screen',
         #remappings=[('/joint_states', '/romulus/joint_states')]
-
         ),
-
-
-        
-        #RViz
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            output='screen',
-            arguments=['-d', rviz_config_path]
-        )
     ])
