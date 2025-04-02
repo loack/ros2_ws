@@ -98,4 +98,13 @@ def generate_launch_description():
         output='screen',
         #remappings=[('/joint_states', '/romulus/joint_states')]
         ),
+
+        # Joint1 publisher for Remus
+        Node(
+            package='kuka_urdf',
+            executable='joints_publisher',
+            name='remus_joints_publisher',
+            namespace='remus',
+            output='screen'
+        ),
     ])
