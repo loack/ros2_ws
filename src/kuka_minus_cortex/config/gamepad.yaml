@@ -1,0 +1,16 @@
+gamepad:
+  type: "gamepad"
+  axes:
+    left_stick_x: "axis0"
+    left_stick_y: "axis1"
+    right_stick_x: "axis2"
+    right_stick_y: "axis3"
+  buttons:
+    a: "button0"
+    b: "button1"
+    x: "button2"
+    y: "button3"
+    left_bumper: "button4"
+    right_bumper: "button5"
+    start: "button6"
+    select: "button7"

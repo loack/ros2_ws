@@ -27,7 +27,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'joint_state_listener = kuka_urdf.joint_state_listener:main',
+            'state_publisher = kuka_urdf.state_publisher:main',
         ],
     },
 )
