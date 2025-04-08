@@ -62,7 +62,7 @@ class StatePublisher(Node):
             "BTN_THUMBR": 0,
             "BTN_START": 0,
             "BTN_SELECT": 0,
-            "ABS_HAT0X": 0,
+            "ABS_BRAKE": 0,
             "ABS_HAT0Y": 0,
         }
 
@@ -75,25 +75,22 @@ class StatePublisher(Node):
     
     def change_joint_state_values(self):
         # Change joint states based on joystick input
-        if self.joystick_state["ABS_RX"] > 0:
-            self.change_joint_state('remus', 0, self.joint_data['remus']['positions'][0] + 0.1)
-        elif self.joystick_state["ABS_RX"] < 0:
-            self.change_joint_state('remus', 0, self.joint_data['remus']['positions'][0] - 0.1)
-
-        if self.joystick_state["ABS_RY"] > 0:
-            self.change_joint_state('remus', 1, self.joint_data['remus']['positions'][1] + 0.1)
-        elif self.joystick_state["ABS_RY"] < 0:
-            self.change_joint_state('remus', 1, self.joint_data['remus']['positions'][1] - 0.1)
+        self.joint_data["remus"]["positions"][0] = self.joystick_state["ABS_X"] + (self.joystick_state["ABS_X"] - 33500)/ 33500
+        self.joint_data["remus"]["positions"][1] = self.joystick_state["ABS_Y"] + (self.joystick_state["ABS_Y"] - 33500)/ 33500
+        self.joint_data["remus"]["positions"][2] = self.joystick_state["ABS_BRAKE"] + self.joystick_state["ABS_BRAKE"] / 1024
 
     def read_joystick(self):
         # Read joystick events in a loop
         try:
             for event in self.controller.read_loop():
                 if event.type == ecodes.EV_KEY or event.type == ecodes.EV_ABS:
+                    self.get_logger().info(f'Event: {event}, updating joystick state')
                     name = ecodes.bytype[event.type][event.code]
                     self.joystick_state[name] = event.value
-                    self.get_logger().info(f'Joystick state updated: {self.joystick_state}')
+                    #self.get_logger().info(f'Joystick state updated: {self.joystick_state}')
                     # Update joint states based on joystick input
+                    #print joystick state
+                    self.get_logger().info(f'Joystick state: {self.joystick_state}')
                     self.change_joint_state_values()
         except Exception as e:
             self.get_logger().error(f'Error reading joystick: {e}')
@@ -112,16 +109,8 @@ class StatePublisher(Node):
 
         # Publish the message
         self.joint_state_publishers[robot_name].publish(joint_state_msg)
-        self.get_logger().info(f'Published {robot_name.capitalize()} joint states: {self.joint_data[robot_name]["positions"]}')
+        #self.get_logger().info(f'Published {robot_name.capitalize()} joint states: {self.joint_data[robot_name]["positions"]}')
     
-    def change_joint_state(self, robot_name, joint_index, new_position):
-        # Change the joint state for the specified robot and joint index
-        if robot_name in self.joint_data and 0 <= joint_index < len(self.joint_data[robot_name]['positions']):
-            self.joint_data[robot_name]['positions'][joint_index] = new_position
-            self.get_logger().info(f'Changed {robot_name.capitalize()} joint {joint_index} to {new_position}')
-        else:
-            self.get_logger().error(f'Invalid robot name or joint index: {robot_name}, {joint_index}')
-
     def find_controller(self):  # Add 'self' as the first parameter
         print("Recherche d'une manette Xbox connectée...")
         devices = [InputDevice(path) for path in list_devices()]
