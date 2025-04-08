@@ -1,10 +1,6 @@
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/__init__.py
-/home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/joint_state_listener.py
-/home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/command_line_state_publisher.py
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/state_publisher.py
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/__pycache__/__init__.cpython-312.pyc
-/home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/__pycache__/joint_state_listener.cpython-312.pyc
-/home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/__pycache__/command_line_state_publisher.cpython-312.pyc
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/__pycache__/state_publisher.cpython-312.pyc
 /home/lolo/ros2_ws/install/kuka_urdf/share/ament_index/resource_index/packages/kuka_urdf
 /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/package.xml
@@ -33,4 +29,4 @@
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf-0.0.0-py3.12.egg-info/requires.txt
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf-0.0.0-py3.12.egg-info/SOURCES.txt
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf-0.0.0-py3.12.egg-info/dependency_links.txt
-/home/lolo/ros2_ws/install/kuka_urdf/lib/kuka_urdf/joint_state_listener
+/home/lolo/ros2_ws/install/kuka_urdf/lib/kuka_urdf/state_publisher

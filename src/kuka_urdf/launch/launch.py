@@ -76,35 +76,14 @@ def generate_launch_description():
             package='tf2_ros',
             executable='static_transform_publisher',
             name='romulus_static_tf',
+            namespace='romulus',
             arguments=['0', '1.5', '0', '0', '0', '0', 'world', 'romulus_base_link']
         ),
-        
-        #joint state publisher GUI
-        Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        name='remus_joint_state_publisher_gui',
-        namespace='remus',
-        output='screen',
-        #remappings=[('/joint_states', '/remus/joint_states')]
-        ),
-        
-        #joint state publisher GUI
-        Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        name='romulus_joint_state_publisher_gui',
-        namespace='romulus',
-        output='screen',
-        #remappings=[('/joint_states', '/romulus/joint_states')]
-        ),
 
-        # Joint1 publisher for Remus
-        Node(
-            package='kuka_urdf',
-            executable='joints_publisher',
-            name='remus_joints_publisher',
-            namespace='remus',
-            output='screen'
-        ),
+        Node(package='kuka_urdf',
+             executable='state_publisher',
+             name='state_publisher',
+             output='screen',
+             parameters=[{'use_sim_time': use_sim_time}],)
+        
     ])
