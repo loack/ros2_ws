@@ -1,6 +1,8 @@
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/__init__.py
+/home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/joints_publisher.py
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/state_publisher.py
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/__pycache__/__init__.cpython-312.pyc
+/home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/__pycache__/joints_publisher.cpython-312.pyc
 /home/lolo/ros2_ws/install/kuka_urdf/lib/python3.12/site-packages/kuka_urdf/__pycache__/state_publisher.cpython-312.pyc
 /home/lolo/ros2_ws/install/kuka_urdf/share/ament_index/resource_index/packages/kuka_urdf
 /home/lolo/ros2_ws/install/kuka_urdf/share/kuka_urdf/package.xml
