@@ -1,12 +1,11 @@
+#!./.venv/bin/python
+
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
 import time, os
 import evdev
 from evdev import InputDevice, categorize, ecodes, list_devices
-
-
-#!/usr/bin/env python3
 
 class StatePublisher(Node):
     def __init__(self):
@@ -34,6 +33,8 @@ class StatePublisher(Node):
             }
         }
 
+        self.publish_joint_states()
+        
         # Publish joint states at a fixed rate
         self.timer = self.create_timer(0.01, self.publish_joint_states)
 
@@ -89,7 +90,7 @@ class StatePublisher(Node):
                 self.joystick_state[name] = event.value
                 print(self.joystick_state)
                 #update joint states based on joystick input
-                self.change_joint_state_values(self)
+                self.change_joint_state_values()
 
     def publish_joint_states(self):
         self.publish_robot_joint_states('remus')
@@ -114,7 +115,7 @@ class StatePublisher(Node):
         else:
             self.get_logger().error(f'Invalid robot name or joint index: {robot_name}, {joint_index}')
 
-    def find_controller():
+    def find_controller(self):  # Add 'self' as the first parameter
         print("Recherche d'une manette Xbox connectée...")
         devices = [InputDevice(path) for path in list_devices()]
         for device in devices:

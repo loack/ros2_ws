@@ -10,6 +10,7 @@ setup.py
 ../../build/kuka_urdf/kuka_urdf.egg-info/top_level.txt
 ../../build/kuka_urdf/kuka_urdf.egg-info/zip-safe
 kuka_urdf/__init__.py
+kuka_urdf/gamepad.py
 kuka_urdf/joints_publisher.py
 kuka_urdf/state_publisher.py
 launch/launch.py
