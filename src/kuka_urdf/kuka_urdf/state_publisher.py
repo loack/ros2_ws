@@ -6,6 +6,7 @@ from sensor_msgs.msg import JointState
 import time, os
 import evdev
 from evdev import InputDevice, categorize, ecodes, list_devices
+import threading
 
 class StatePublisher(Node):
     def __init__(self):
@@ -33,15 +34,14 @@ class StatePublisher(Node):
             }
         }
 
-        self.publish_joint_states()
-        
-        # Publish joint states at a fixed rate
-        self.timer = self.create_timer(0.01, self.publish_joint_states)
-
         # Initialize the Xbox controller
         self.controller = self.find_controller()
         if self.controller:
             self.controller.grab()
+            # Start the joystick reading in a separate thread
+            joystick_thread = threading.Thread(target=self.read_joystick, daemon=True)
+            joystick_thread.start()
+            self.get_logger().info('Joystick reading thread started')
         else:
             self.get_logger().error('No Xbox controller found. Joint states will not be updated.')
         
@@ -66,9 +66,12 @@ class StatePublisher(Node):
             "ABS_HAT0Y": 0,
         }
 
+        # Publish joint states at a fixed rate
+        self.timer = self.create_timer(0.01, self.publish_joint_states)
+
         #lauch joystick reading in a separate thread
-        self.joystick_thread = self.create_timer(0.01, self.read_joystick)
-        self.get_logger().info('Joystick reading thread started')
+        #self.joystick_thread = self.create_timer(0.01, self.read_joystick)
+        #self.get_logger().info('Joystick reading thread started')
     
     def change_joint_state_values(self):
         # Change joint states based on joystick input
@@ -83,16 +86,20 @@ class StatePublisher(Node):
             self.change_joint_state('remus', 1, self.joint_data['remus']['positions'][1] - 0.1)
 
     def read_joystick(self):
-        # Read joystick events
-        for event in self.controller.read_loop():
-            if event.type == ecodes.EV_KEY or event.type == ecodes.EV_ABS:
-                name = ecodes.bytype[event.type][event.code]
-                self.joystick_state[name] = event.value
-                print(self.joystick_state)
-                #update joint states based on joystick input
-                self.change_joint_state_values()
+        # Read joystick events in a loop
+        try:
+            for event in self.controller.read_loop():
+                if event.type == ecodes.EV_KEY or event.type == ecodes.EV_ABS:
+                    name = ecodes.bytype[event.type][event.code]
+                    self.joystick_state[name] = event.value
+                    self.get_logger().info(f'Joystick state updated: {self.joystick_state}')
+                    # Update joint states based on joystick input
+                    self.change_joint_state_values()
+        except Exception as e:
+            self.get_logger().error(f'Error reading joystick: {e}')
 
     def publish_joint_states(self):
+        #self.read_joystick()
         self.publish_robot_joint_states('remus')
         self.publish_robot_joint_states('romulus')
 
