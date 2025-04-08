@@ -1,7 +1,10 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
-import time
+import time, os
+import evdev
+from evdev import InputDevice, categorize, ecodes, list_devices
+
 
 #!/usr/bin/env python3
 
@@ -32,9 +35,61 @@ class StatePublisher(Node):
         }
 
         # Publish joint states at a fixed rate
-        self.timer = self.create_timer(0.1, self.publish_joint_states)
+        self.timer = self.create_timer(0.01, self.publish_joint_states)
 
-        self.timer2 = self.create_timer(0.1, self.rotate_robots)
+        # Initialize the Xbox controller
+        self.controller = self.find_controller()
+        if self.controller:
+            self.controller.grab()
+        else:
+            self.get_logger().error('No Xbox controller found. Joint states will not be updated.')
+        
+        self.joystick_state = {
+            "ABS_X": 0,
+            "ABS_Y": 0,
+            "ABS_RX": 0,
+            "ABS_RY": 0,
+            "ABS_Z": 0,
+            "ABS_RZ": 0,
+            "BTN_SOUTH": 0,  # A
+            "BTN_EAST": 0,   # B
+            "BTN_NORTH": 0,  # X
+            "BTN_WEST": 0,   # Y
+            "BTN_TL": 0,     # LB
+            "BTN_TR": 0,     # RB
+            "BTN_THUMBL": 0,
+            "BTN_THUMBR": 0,
+            "BTN_START": 0,
+            "BTN_SELECT": 0,
+            "ABS_HAT0X": 0,
+            "ABS_HAT0Y": 0,
+        }
+
+        #lauch joystick reading in a separate thread
+        self.joystick_thread = self.create_timer(0.01, self.read_joystick)
+        self.get_logger().info('Joystick reading thread started')
+    
+    def change_joint_state_values(self):
+        # Change joint states based on joystick input
+        if self.joystick_state["ABS_RX"] > 0:
+            self.change_joint_state('remus', 0, self.joint_data['remus']['positions'][0] + 0.1)
+        elif self.joystick_state["ABS_RX"] < 0:
+            self.change_joint_state('remus', 0, self.joint_data['remus']['positions'][0] - 0.1)
+
+        if self.joystick_state["ABS_RY"] > 0:
+            self.change_joint_state('remus', 1, self.joint_data['remus']['positions'][1] + 0.1)
+        elif self.joystick_state["ABS_RY"] < 0:
+            self.change_joint_state('remus', 1, self.joint_data['remus']['positions'][1] - 0.1)
+
+    def read_joystick(self):
+        # Read joystick events
+        for event in self.controller.read_loop():
+            if event.type == ecodes.EV_KEY or event.type == ecodes.EV_ABS:
+                name = ecodes.bytype[event.type][event.code]
+                self.joystick_state[name] = event.value
+                print(self.joystick_state)
+                #update joint states based on joystick input
+                self.change_joint_state_values(self)
 
     def publish_joint_states(self):
         self.publish_robot_joint_states('remus')
@@ -59,13 +114,15 @@ class StatePublisher(Node):
         else:
             self.get_logger().error(f'Invalid robot name or joint index: {robot_name}, {joint_index}')
 
-    def rotate_robots(self):
-        # Rotate the robots by changing their joint states
-        self.joint_data['remus']['positions'][0] += 0.1
-        self.joint_data['romulus']['positions'][0] += 0.1
-        # Log the new joint states
-        self.get_logger().info(f'Rotated Remus joint states: {self.joint_data["remus"]["positions"]}')
-        self.get_logger().info(f'Rotated Romulus joint states: {self.joint_data["romulus"]["positions"]}')
+    def find_controller():
+        print("Recherche d'une manette Xbox connectée...")
+        devices = [InputDevice(path) for path in list_devices()]
+        for device in devices:
+            if 'Xbox' in device.name or 'Controller' in device.name:
+                print(f"✅ Manette trouvée : {device.name} ({device.path})")
+                return device
+        print("❌ Aucune manette trouvée.")
+        return None
 
 
 def main(args=None):
@@ -75,6 +132,10 @@ def main(args=None):
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
+        node.get_logger().info('Keyboard interrupt, shutting down...')
+        # Cleanup
+        node.controller.ungrab()
+        node.controller.close()
         pass
 
     node.destroy_node()
