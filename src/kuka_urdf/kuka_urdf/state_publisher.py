@@ -46,12 +46,12 @@ class StatePublisher(Node):
             self.get_logger().error('No Xbox controller found. Joint states will not be updated.')
         
         self.joystick_state = {
-            "ABS_X": 0,
-            "ABS_Y": 0,
+            "ABS_X": 0, # -32768 to 32767
+            "ABS_Y": 0, # -32768 to 32767
             "ABS_RX": 0,
             "ABS_RY": 0,
-            "ABS_Z": 0,
-            "ABS_RZ": 0,
+            "ABS_Z": 0,  #base 0- 1024
+            "ABS_RZ": 0, #base 0- 1024
             "BTN_SOUTH": 0,  # A
             "BTN_EAST": 0,   # B
             "BTN_NORTH": 0,  # X
@@ -74,29 +74,45 @@ class StatePublisher(Node):
         #self.get_logger().info('Joystick reading thread started')
     
     def change_joint_state_values(self):
+        trigger = 2000
+        speed = 0.01
         # Change joint states based on joystick input
-        self.joint_data["remus"]["positions"][0] = self.joystick_state["ABS_X"] + (self.joystick_state["ABS_X"] - 33500)/ 33500
-        self.joint_data["remus"]["positions"][1] = self.joystick_state["ABS_Y"] + (self.joystick_state["ABS_Y"] - 33500)/ 33500
-        self.joint_data["remus"]["positions"][2] = self.joystick_state["ABS_BRAKE"] + self.joystick_state["ABS_BRAKE"] / 1024
+        if abs(self.joystick_state["ABS_X"])> trigger:
+            self.joint_data["remus"]["positions"][0] += speed * self.joystick_state["ABS_X"] / 32768
+        if abs(self.joystick_state["ABS_Y"])> trigger:
+            self.joint_data["remus"]["positions"][1] += speed * self.joystick_state["ABS_Y"] / 32768
 
+        self.joint_data["remus"]["positions"][2] += speed * self.joystick_state["ABS_Z"] / 1024 #base 1024
+        self.joint_data["remus"]["positions"][2] -= speed * self.joystick_state["ABS_RZ"] / 1024 #base 1024
+
+        if abs(self.joystick_state["ABS_RY"])> trigger:
+            self.joint_data["remus"]["positions"][3] += speed * self.joystick_state["ABS_RX"] / 32768
+        if abs(self.joystick_state["ABS_RY"])> trigger:
+            self.joint_data["remus"]["positions"][4] += speed * self.joystick_state["ABS_RY"] / 32768
+
+    #independ read joystick thread
     def read_joystick(self):
         # Read joystick events in a loop
         try:
-            for event in self.controller.read_loop():
+            for event in self.controller.read_loop(): #if event change joystick state
                 if event.type == ecodes.EV_KEY or event.type == ecodes.EV_ABS:
-                    self.get_logger().info(f'Event: {event}, updating joystick state')
+                    #self.get_logger().info(f'Event: {event}, updating joystick state')
                     name = ecodes.bytype[event.type][event.code]
                     self.joystick_state[name] = event.value
                     #self.get_logger().info(f'Joystick state updated: {self.joystick_state}')
                     # Update joint states based on joystick input
                     #print joystick state
-                    self.get_logger().info(f'Joystick state: {self.joystick_state}')
-                    self.change_joint_state_values()
+                    #self.get_logger().info(f'Joystick state: {self.joystick_state}')
+                    
         except Exception as e:
             self.get_logger().error(f'Error reading joystick: {e}')
 
     def publish_joint_states(self):
         #self.read_joystick()
+        # Update joint states based on joystick input
+        self.change_joint_state_values()
+        # Publish joint states for both robots
+
         self.publish_robot_joint_states('remus')
         self.publish_robot_joint_states('romulus')
 

@@ -1,2 +1,0 @@
-[console_scripts]
-hello_node = hello_package.hello_node:main
