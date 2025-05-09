@@ -7,8 +7,13 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch.substitutions import Command
 
+import sys
+
+
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    print(f"###########Python path:{sys.executable}############")
+    print(f"###########Sys path:{sys.path}############")
 
     #Remus robot
     urdf_file_name = 'kr210l150_remus.urdf'
@@ -84,6 +89,7 @@ def generate_launch_description():
              executable='state_publisher',
              name='state_publisher',
              output='screen',
-             parameters=[{'use_sim_time': use_sim_time}],)
+             parameters=[{'use_sim_time': use_sim_time}],
+             arguments=[urdf_1, urdf_2])
         
     ])

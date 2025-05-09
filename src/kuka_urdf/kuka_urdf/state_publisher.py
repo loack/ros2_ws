@@ -8,11 +8,29 @@ import evdev
 from evdev import InputDevice, categorize, ecodes, list_devices
 import threading
 
+import ikpy
+from ikpy.chain import Chain
+from ikpy.link import URDFLink
+
 class StatePublisher(Node):
     def __init__(self):
         super().__init__('state_publisher')
         self.get_logger().info(f'Initializing {self.get_name()} node')
 
+        #retrieve urdf arguments passed in launch
+        self.declare_parameter('urdf_1', '/content/kr210l150_remus.urdf')
+        self.declare_parameter('urdf_2', '/content/kr210l150_romulus.urdf')
+        self.urdf_1 = self.get_parameter('urdf_1').get_parameter_value().string_value
+        self.urdf_2 = self.get_parameter('urdf_2').get_parameter_value().string_value
+        self.get_logger().info(f'URDF 1: {self.urdf_1}')
+        self.get_logger().info(f'URDF 2: {self.urdf_2}')
+
+
+        #ikpy initialization
+        self.remus_chain = Chain.from_urdf_file(self.urdf_1)
+        self.romulus_chain = Chain.from_urdf_file(self.urdf_2)
+        self.get_logger().info('IKPY initialized')
+        
         # Publishers for remus and romulus joint states
         self.joint_state_publishers = {
             'remus': self.create_publisher(JointState, '/remus/joint_states', 10),
@@ -72,6 +90,7 @@ class StatePublisher(Node):
         #lauch joystick reading in a separate thread
         #self.joystick_thread = self.create_timer(0.01, self.read_joystick)
         #self.get_logger().info('Joystick reading thread started')
+ 
     
     def change_joint_state_values(self):
         trigger = 2000
